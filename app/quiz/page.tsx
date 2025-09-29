@@ -9,21 +9,35 @@ import { Trophy, ChevronRight } from "lucide-react";
 const questions = [
   {
     id: 1,
-    text: "Kalau ada nasi basi di kosan, kamu buang kapan?",
-    options: ["Langsung", "Besok", "Nunggu jamuran"],
+    text: "seberapa suka kamu dengan Kaoruko Waguri?",
+    options: ["Suka bgt", "My Kisah", "My bini"],
   },
   {
     id: 2,
-    text: "Pilih lauk darurat:",
-    options: ["Indomie", "Kerupuk", "Nasi sama nasi"],
+    text: "INGAT Darah keturunan karbit akan mengalir pada anak cucunya!",
+    options: ["Yaya saya setuju", "bawakdahelwak", "womp womp"],
   },
   {
     id: 3,
-    text: "Kalau hujan deras, kamu:",
+    text: "Berapa jumlah Waifu/husbumu sekarang?",
+    options: ["1", "3", "Infinity"],
+  },
+  {
+    id: 4,
+    text: "Siapa seiyuu (pengisi suara) dari karakter favoritmu?",
     options: [
-      "Tetep keluar",
-      "Nunggu reda",
-      "Pakai kantong plastik jadi jas hujan",
+      "Gak tau, yg penting cakep/keren",
+      "Langsung cek Gugel",
+      "Hafal sampe tanggal lahirnya",
+    ],
+  },
+  {
+    id: 5,
+    text: "Deadline tugas numpuk VS Episode baru rilis. Pilih mana?",
+    options: [
+      "Jelas tugas lah, masa depan nih",
+      "Nonton dulu bentar, abis itu nugas (tapi ketiduran)",
+      "Waifu/Husbu adalah masa depanku",
     ],
   },
 ];
@@ -36,7 +50,7 @@ export default function QuizPage() {
   const handleAnswer = () => {
     setIsAnimating(true);
     const randomPoint = Math.floor(Math.random() * 21) + 10; // 10-30
-    
+
     setTimeout(() => {
       setScore(score + randomPoint);
       setStep(step + 1);
@@ -74,7 +88,7 @@ export default function QuizPage() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 dark:from-green-400 dark:via-emerald-400 dark:to-teal-400 bg-clip-text text-transparent">
             Mantap! 🎉
           </h2>
-          
+
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
             Quiz selesai! Yuk lihat hasilnya
           </p>
@@ -109,22 +123,26 @@ export default function QuizPage() {
       </div>
 
       {/* Content */}
-      <div className={`relative z-10 w-full max-w-2xl transition-all duration-300 ${isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'}`}>
+      <div
+        className={`relative z-10 w-full max-w-2xl transition-all duration-300 ${
+          isAnimating ? "scale-95 opacity-50" : "scale-100 opacity-100"
+        }`}
+      >
         <QuestionCard
           question={questions[step].text}
           options={questions[step].options}
           onAnswer={handleAnswer}
         />
-        
+
         {/* Progress Indicator */}
         <div className="mt-8 text-center">
           <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
             Pertanyaan {step + 1} dari {questions.length}
           </p>
-          
+
           {/* Progress Bar */}
           <div className="w-full max-w-xs mx-auto h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div 
+            <div
               className="h-full bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 rounded-full transition-all duration-500 ease-out"
               style={{ width: `${((step + 1) / questions.length) * 100}%` }}
             ></div>
