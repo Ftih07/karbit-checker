@@ -49,7 +49,7 @@ export default function QuizPage() {
 
   const handleAnswer = () => {
     setIsAnimating(true);
-    const randomPoint = Math.floor(Math.random() * 21) + 10; // 10-30
+    const randomPoint = Math.floor(Math.random() * 16) + 5; // 5-20
 
     setTimeout(() => {
       setScore(score + randomPoint);
