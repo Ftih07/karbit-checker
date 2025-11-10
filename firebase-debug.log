@@ -1,0 +1,49 @@
+[debug] [2025-11-10T06:47:14.203Z] ----------------------------------------------------------------------
+[debug] [2025-11-10T06:47:14.205Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\LENOVO\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-11-10T06:47:14.205Z] CLI Version:   14.24.1
+[debug] [2025-11-10T06:47:14.205Z] Platform:      win32
+[debug] [2025-11-10T06:47:14.205Z] Node Version:  v20.16.0
+[debug] [2025-11-10T06:47:14.205Z] Time:          Mon Nov 10 2025 13:47:14 GMT+0700 (Western Indonesia Time)
+[debug] [2025-11-10T06:47:14.205Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Iseng\karbit-checker
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2025-11-10T06:47:23.727Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-10T06:47:23.727Z] > authorizing via signed-in user (giipc5013@gmail.com)
+[debug] [2025-11-10T06:47:23.728Z] Checked if tokens are valid: true, expires at: 1762759294240
+[debug] [2025-11-10T06:47:23.728Z] Checked if tokens are valid: true, expires at: 1762759294240
+[debug] [2025-11-10T06:47:23.729Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/karbit-checker [none]
+[debug] [2025-11-10T06:47:24.500Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/karbit-checker 200
+[debug] [2025-11-10T06:47:24.501Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/karbit-checker {"projectId":"karbit-checker","projectNumber":"323862676409","displayName":"karbit-checker","name":"projects/karbit-checker","resources":{"hostingSite":"karbit-checker"},"state":"ACTIVE","etag":"1_71fc848f-bbc1-42aa-acef-1b2c095eba51"}
+[info] i  Using project karbit-checker (karbit-checker) . 
+[info] 
+=== Firestore Setup
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2025-11-10T06:47:24.509Z] Checked if tokens are valid: true, expires at: 1762759294240
+[debug] [2025-11-10T06:47:24.510Z] Checked if tokens are valid: true, expires at: 1762759294240
+[debug] [2025-11-10T06:47:24.510Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/karbit-checker/databases [none]
+[debug] [2025-11-10T06:47:25.222Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/karbit-checker/databases 200
+[debug] [2025-11-10T06:47:25.222Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/karbit-checker/databases {"databases":[{"name":"projects/karbit-checker/databases/(default)","uid":"836fc4d1-c26e-4a57-8cba-2ba2937b6178","createTime":"2025-09-29T10:44:39.315651Z","updateTime":"2025-09-29T10:44:39.315651Z","locationId":"asia-southeast1","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2025-11-10T05:50:44.200016Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"zas","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"IImQi5r/5pADMIHFhaDl/Y8D"}]}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2025-11-10T06:47:26.374Z] Checked if tokens are valid: true, expires at: 1762759294240
+[debug] [2025-11-10T06:47:26.374Z] Checked if tokens are valid: true, expires at: 1762759294240
+[debug] [2025-11-10T06:47:26.375Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/karbit-checker/releases pageSize=10&pageToken=
