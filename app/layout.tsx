@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "./components/theme-provider";
 import "./globals.css";
+import Navbar from "./components/Navbar";
+import VisitTracker from "./components/VisitTracker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +29,9 @@ export default function RootLayout({
     <html lang="id" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
+          {/* Panggil tracker biar setiap kunjungan tercatat */}
+          <VisitTracker />
           {children}
         </ThemeProvider>
       </body>

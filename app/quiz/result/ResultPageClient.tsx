@@ -16,10 +16,30 @@ const DICEBEAR_STYLES = ["bottts", "adventurer", "fun-emoji", "notionists"];
 type ScoreCategory = { text: string; color: string; emoji: string };
 
 function getScoreCategory(s: number): ScoreCategory {
-  if (s >= 80) return { text: "Karbit Banget! 🔥", color: "from-red-600 to-orange-600 dark:from-red-500 dark:to-orange-500", emoji: "🔥" };
-  if (s >= 60) return { text: "Lumayan Karbit! ⚡", color: "from-yellow-600 to-orange-600 dark:from-yellow-500 dark:to-orange-500", emoji: "⚡" };
-  if (s >= 40) return { text: "Standar Aja 😎", color: "from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500", emoji: "😎" };
-  return { text: "Santuy Banget 🌿", color: "from-green-600 to-teal-600 dark:from-green-500 dark:to-teal-500", emoji: "🌿" };
+  if (s >= 80)
+    return {
+      text: "Karbit Banget! 🔥",
+      color: "from-red-600 to-orange-600 dark:from-red-500 dark:to-orange-500",
+      emoji: "🔥",
+    };
+  if (s >= 60)
+    return {
+      text: "Lumayan Karbit! ⚡",
+      color:
+        "from-yellow-600 to-orange-600 dark:from-yellow-500 dark:to-orange-500",
+      emoji: "⚡",
+    };
+  if (s >= 40)
+    return {
+      text: "Standar Aja 😎",
+      color: "from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500",
+      emoji: "😎",
+    };
+  return {
+    text: "Santuy Banget 🌿",
+    color: "from-green-600 to-teal-600 dark:from-green-500 dark:to-teal-500",
+    emoji: "🌿",
+  };
 }
 
 export default function ResultPageClient() {
@@ -33,8 +53,13 @@ export default function ResultPageClient() {
   const [avatarStyle, setAvatarStyle] = useState("bottts");
 
   useEffect(() => {
-    const s = Number(params.get("score")) || 0;
-    setScore(s);
+    const s = Number(params.get("score"));
+    if (isNaN(s) || s <= 0) {
+      // Redirect ke quiz kalau belum ada skor valid
+      window.location.href = "/quiz";
+    } else {
+      setScore(s);
+    }
   }, [params]);
 
   // cleanup object URL when preview changes / component unmounts
@@ -70,7 +95,9 @@ export default function ResultPageClient() {
     setLoading(true);
 
     try {
-      let avatarUrl = `https://api.dicebear.com/9.x/${avatarStyle}/svg?seed=${encodeURIComponent(name)}`;
+      let avatarUrl = `https://api.dicebear.com/9.x/${avatarStyle}/svg?seed=${encodeURIComponent(
+        name
+      )}`;
       if (file) {
         const uploadRes = await uploadImage(file);
         // expecting uploadImage to return { secure_url: string } — sesuai kode kamu sebelumnya
@@ -127,21 +154,32 @@ export default function ResultPageClient() {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-6">
             <div className="relative">
-              <div className={`absolute inset-0 bg-gradient-to-r ${category.color} rounded-full blur-xl opacity-50 animate-pulse`}></div>
-              <div className={`relative bg-gradient-to-r ${category.color} p-6 rounded-full`}>
+              <div
+                className={`absolute inset-0 bg-gradient-to-r ${category.color} rounded-full blur-xl opacity-50 animate-pulse`}
+              ></div>
+              <div
+                className={`relative bg-gradient-to-r ${category.color} p-6 rounded-full`}
+              >
                 <Trophy className="w-16 h-16 text-white animate-bounce" />
               </div>
             </div>
           </div>
 
-          <h1 className={`text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
+          <h1
+            className={`text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}
+          >
             {category.text}
           </h1>
-          
+
           <div className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
             <Sparkles className="w-6 h-6 text-yellow-500" />
             <p className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-              Skor: <span className={`bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>{score}</span>
+              Skor:{" "}
+              <span
+                className={`bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}
+              >
+                {score}
+              </span>
             </p>
             <span className="text-2xl">{category.emoji}</span>
           </div>
@@ -181,7 +219,9 @@ export default function ResultPageClient() {
                     />
                   ) : (
                     <img
-                      src={`https://api.dicebear.com/9.x/${avatarStyle}/svg?seed=${encodeURIComponent(name || "random")}`}
+                      src={`https://api.dicebear.com/9.x/${avatarStyle}/svg?seed=${encodeURIComponent(
+                        name || "random"
+                      )}`}
                       alt="Avatar Preview"
                       className="w-24 h-24 rounded-full border-4 border-white dark:border-gray-700 shadow-lg"
                     />
@@ -244,7 +284,10 @@ export default function ResultPageClient() {
                   <>
                     <Upload className="w-12 h-12 text-gray-400 dark:text-gray-500" />
                     <p className="text-gray-600 dark:text-gray-400">
-                      <span className="font-semibold text-indigo-600 dark:text-indigo-400">Klik untuk upload</span> atau drag & drop
+                      <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+                        Klik untuk upload
+                      </span>{" "}
+                      atau drag & drop
                     </p>
                     <p className="text-sm text-gray-500 dark:text-gray-500">
                       PNG, JPG, GIF up to 10MB
@@ -280,11 +323,11 @@ export default function ResultPageClient() {
                 <Check className="w-12 h-12 text-green-600 dark:text-green-400" />
               </div>
             </div>
-            
+
             <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
               Berhasil Disimpan! 🎉
             </h3>
-            
+
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Skor kamu udah masuk ke leaderboard nih!
             </p>

@@ -1,17 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ThemeToggle } from "./components/theme-toggle";
 import { Sparkles, Zap } from "lucide-react";
 
 export default function Home() {
   return (
     <main className="relative flex flex-col items-center justify-center min-h-screen px-4 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-950 dark:to-purple-950 transition-colors duration-300">
-      {/* Theme Toggle - Pojok kanan atas */}
-      <div className="absolute top-6 right-6">
-        <ThemeToggle />
-      </div>
-
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 dark:bg-purple-900 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-30 animate-blob"></div>
@@ -56,8 +50,8 @@ export default function Home() {
 
       {/* Footer */}
       <div className="absolute bottom-6 text-center">
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Made with 💜 by You
+        <p className="text-sm text-gray-500 dark:text-gray-400">  
+          Made with 💜 by Ftih07
         </p>
       </div>
     </main>

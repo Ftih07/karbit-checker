@@ -3,10 +3,15 @@
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 
+type Option = {
+  label: string;
+  score: number;
+};
+
 type Props = {
   question: string;
-  options: string[];
-  onAnswer: () => void;
+  options: Option[];
+  onAnswer: (score: number) => void;
 };
 
 export default function QuestionCard({ question, options, onAnswer }: Props) {
@@ -14,20 +19,21 @@ export default function QuestionCard({ question, options, onAnswer }: Props) {
   const [isHovering, setIsHovering] = useState<number | null>(null);
 
   const handleClick = (idx: number) => {
+    const selectedScore = options[idx].score;
     setSelectedOption(idx);
     setTimeout(() => {
-      onAnswer();
+      onAnswer(selectedScore); // kirim skor ke parent
       setSelectedOption(null);
     }, 200);
   };
 
   const emojis = ["🎯", "⚡", "🔥", "✨", "💫", "🌟"];
-  
+
   return (
     <div className="relative">
       {/* Glow effect */}
       <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-500 dark:via-purple-500 dark:to-pink-500 rounded-3xl blur-lg opacity-20 dark:opacity-30 animate-pulse"></div>
-      
+
       {/* Card */}
       <div className="relative bg-white dark:bg-gray-800 shadow-2xl rounded-3xl p-6 md:p-8 w-full backdrop-blur-sm border border-gray-100 dark:border-gray-700 transition-colors duration-300">
         {/* Decorative Icon */}
@@ -64,22 +70,26 @@ export default function QuestionCard({ question, options, onAnswer }: Props) {
                     : "bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 }
                 border-2 border-transparent
-                ${isHovering === idx ? "border-indigo-300 dark:border-indigo-600" : ""}
+                ${
+                  isHovering === idx
+                    ? "border-indigo-300 dark:border-indigo-600"
+                    : ""
+                }
               `}
             >
               <div className="flex items-center justify-between">
-                <span className="flex-1">
-                  {opt}
-                </span>
-                <span className={`
+                <span className="flex-1">{opt.label}</span>
+                <span
+                  className={`
                   text-xl transition-all duration-200
                   ${isHovering === idx ? "scale-110 rotate-12" : "scale-100"}
                   ${selectedOption === idx ? "animate-bounce" : ""}
-                `}>
+                `}
+                >
                   {emojis[idx % emojis.length]}
                 </span>
               </div>
-              
+
               {/* Hover effect indicator */}
               {isHovering === idx && (
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-400/20 to-purple-400/20 dark:from-indigo-500/20 dark:to-purple-500/20 pointer-events-none"></div>
