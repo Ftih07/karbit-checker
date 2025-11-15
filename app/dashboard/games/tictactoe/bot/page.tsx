@@ -13,7 +13,9 @@ import {
 
 export default function PlayWithBot() {
   const router = useRouter();
-  const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard" | null>(null);
+  const [difficulty, setDifficulty] = useState<
+    "easy" | "medium" | "hard" | null
+  >(null);
   const [board, setBoard] = useState<Symbol[]>(Array(9).fill(null));
   const [playerSymbol, setPlayerSymbol] = useState<"X" | "O" | null>(null);
   const [botSymbol, setBotSymbol] = useState<"X" | "O" | null>(null);
@@ -33,7 +35,11 @@ export default function PlayWithBot() {
       [2, 4, 6],
     ];
     for (const [a, b, c] of lines) {
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      if (
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
+      ) {
         return squares[a];
       }
     }
@@ -93,7 +99,8 @@ export default function PlayWithBot() {
     const user = auth.currentUser;
     if (!user) return;
 
-    const outcome = result === playerSymbol ? "win" : result === botSymbol ? "lose" : "draw";
+    const outcome =
+      result === playerSymbol ? "win" : result === botSymbol ? "lose" : "draw";
 
     try {
       await addDoc(collection(db, "games"), {
@@ -157,8 +164,12 @@ export default function PlayWithBot() {
               <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
                 <span className="text-3xl">😊</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Mudah</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Cocok untuk pemula</p>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                Mudah
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Cocok untuk pemula
+              </p>
             </button>
 
             <button
@@ -168,8 +179,12 @@ export default function PlayWithBot() {
               <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
                 <span className="text-3xl">🤔</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Sedang</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Tantangan seimbang</p>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                Sedang
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Tantangan seimbang
+              </p>
             </button>
 
             <button
@@ -179,8 +194,12 @@ export default function PlayWithBot() {
               <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
                 <span className="text-3xl">😤</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Sulit</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Untuk yang pro!</p>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                Sulit
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Untuk yang pro!
+              </p>
             </button>
           </div>
         </main>
@@ -218,7 +237,9 @@ export default function PlayWithBot() {
           <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-3xl p-8 mb-6 shadow-lg border border-gray-200 dark:border-gray-700">
             <span className="text-8xl block">✨</span>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Pilih Simbol Kamu</h2>
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Pilih Simbol Kamu
+          </h2>
           <p className="text-gray-600 dark:text-gray-400 mb-8">X atau O?</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl">
@@ -233,8 +254,12 @@ export default function PlayWithBot() {
               <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
                 <span className="text-5xl font-bold text-white">X</span>
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Simbol X</h3>
-              <p className="text-gray-600 dark:text-gray-400">Kamu main duluan</p>
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                Simbol X
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Kamu main duluan
+              </p>
             </button>
 
             <button
@@ -248,8 +273,12 @@ export default function PlayWithBot() {
               <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
                 <span className="text-5xl font-bold text-white">O</span>
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Simbol O</h3>
-              <p className="text-gray-600 dark:text-gray-400">Bot main duluan</p>
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                Simbol O
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Bot main duluan
+              </p>
             </button>
           </div>
         </main>
@@ -332,7 +361,11 @@ export default function PlayWithBot() {
                     shadow-md hover:shadow-xl
                     transition-all duration-200
                     disabled:cursor-not-allowed
-                    ${turn === "player" && !winner && !val ? "hover:scale-105 hover:bg-blue-50 dark:hover:bg-gray-600" : ""}
+                    ${
+                      turn === "player" && !winner && !val
+                        ? "hover:scale-105 hover:bg-blue-50 dark:hover:bg-gray-600"
+                        : ""
+                    }
                     ${val === "X" ? "text-blue-600 dark:text-blue-400" : ""}
                     ${val === "O" ? "text-purple-600 dark:text-purple-400" : ""}
                   `}
@@ -361,21 +394,51 @@ export default function PlayWithBot() {
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white/50 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl p-4 border border-gray-200 dark:border-gray-700 text-center">
             <div className="text-2xl mb-2">🤖</div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium capitalize">Mode: {difficulty}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium capitalize">
+              Mode: {difficulty}
+            </p>
           </div>
           <div className="bg-white/50 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl p-4 border border-gray-200 dark:border-gray-700 text-center">
             <div className="text-2xl mb-2">⚡</div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Auto Save</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+              Auto Save
+            </p>
           </div>
           <div className="bg-white/50 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl p-4 border border-gray-200 dark:border-gray-700 text-center">
             <div className="text-2xl mb-2">🎯</div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Melawan AI</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+              Melawan AI
+            </p>
           </div>
         </div>
       </main>
 
-      <footer className="py-8 text-center text-gray-600 dark:text-gray-400 text-sm">
-        <p>Made with 💜 by Ftih07</p>
+      {/* Footer Text */}
+      <footer className="mt-10 py-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex gap-4">
+            <a
+              href="/terms"
+              className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 
+                 text-gray-600 dark:text-gray-300 text-sm hover:bg-gray-100 
+                 dark:hover:bg-gray-800 transition"
+            >
+              Terms & Services
+            </a>
+            <a
+              href="/privacy"
+              className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700
+                 text-gray-600 dark:text-gray-300 text-sm hover:bg-gray-100
+                 dark:hover:bg-gray-800 transition"
+            >
+              Privacy Policy
+            </a>
+          </div>
+
+          <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
+            Made with 💜 by Ftih07
+          </p>
+        </div>
       </footer>
     </div>
   );

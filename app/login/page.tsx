@@ -9,6 +9,7 @@ import {
   facebookProvider,
   githubProvider,
   microsoftProvider,
+  twitterProvider,
 } from "@/lib/firebase";
 import {
   signInWithEmailAndPassword,
@@ -382,6 +383,18 @@ export default function LoginPage() {
               </svg>
               Masuk dengan Microsoft
             </button>
+
+            {/* Twitter (X) Sign In */}
+            <button
+              type="button"
+              onClick={() => handleSocialSignIn(twitterProvider)}
+              className="w-full bg-black hover:bg-gray-800 text-white font-semibold py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              Masuk dengan X
+            </button>
           </form>
 
           {/* Register Link */}
@@ -397,9 +410,32 @@ export default function LoginPage() {
         </div>
 
         {/* Footer Text */}
-        <p className="text-center text-gray-500 dark:text-gray-400 text-sm mt-6">
-          Made with 💜 by Ftih07
-        </p>
+        <footer className="mt-10 py-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex gap-4">
+              <a
+                href="/terms"
+                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 
+                 text-gray-600 dark:text-gray-300 text-sm hover:bg-gray-100 
+                 dark:hover:bg-gray-800 transition"
+              >
+                Terms & Services
+              </a>
+              <a
+                href="/privacy"
+                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700
+                 text-gray-600 dark:text-gray-300 text-sm hover:bg-gray-100
+                 dark:hover:bg-gray-800 transition"
+              >
+                Privacy Policy
+              </a>
+            </div>
+
+            <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
+              Made with 💜 by Ftih07
+            </p>
+          </div>
+        </footer>
       </div>
     </div>
   );

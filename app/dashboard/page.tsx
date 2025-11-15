@@ -144,9 +144,32 @@ export default function UserDashboard() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="mt-16 py-8 text-center text-gray-600 dark:text-gray-400 text-sm">
-        <p>Made with 💜 by Ftih07</p>
+      {/* Footer Text */}
+      <footer className="mt-10 py-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex gap-4">
+            <a
+              href="/terms"
+              className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 
+                 text-gray-600 dark:text-gray-300 text-sm hover:bg-gray-100 
+                 dark:hover:bg-gray-800 transition"
+            >
+              Terms & Services
+            </a>
+            <a
+              href="/privacy"
+              className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700
+                 text-gray-600 dark:text-gray-300 text-sm hover:bg-gray-100
+                 dark:hover:bg-gray-800 transition"
+            >
+              Privacy Policy
+            </a>
+          </div>
+
+          <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
+            Made with 💜 by Ftih07
+          </p>
+        </div>
       </footer>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   FacebookAuthProvider,
   GithubAuthProvider,
   OAuthProvider,
+  TwitterAuthProvider,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -44,5 +45,8 @@ githubProvider.addScope("user:email");
 export const facebookProvider = new FacebookAuthProvider();
 facebookProvider.addScope("public_profile");
 facebookProvider.addScope("email");
+
+// TWITTER SIGN-IN
+export const twitterProvider = new TwitterAuthProvider();
 
 export default app;

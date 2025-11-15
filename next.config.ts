@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       "api.dicebear.com",
       "avatars.githubusercontent.com",
       "lh3.googleusercontent.com",
+      "pbs.twimg.com",
     ],
   },
 };
