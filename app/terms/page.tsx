@@ -49,7 +49,7 @@ export default function TermsOfServicePage() {
                   <span className="font-semibold text-purple-600 dark:text-purple-400">
                     Karbit Checker
                   </span>
-                  ! Syarat dan Ketentuan ("Syarat") ini mengatur akses Anda ke
+                  ! Syarat dan Ketentuan (Syarat) ini mengatur akses Anda ke
                   dan penggunaan situs web dan layanan kami. Dengan mengakses
                   atau menggunakan Layanan, Anda setuju untuk terikat oleh
                   Syarat ini.
@@ -163,7 +163,7 @@ export default function TermsOfServicePage() {
                   </h2>
                   <div className="space-y-4">
                     <p className="leading-relaxed">
-                      Layanan ini disediakan "SEBAGAIMANA ADANYA" tanpa jaminan
+                      Layanan ini disediakan SEBAGAIMANA ADANYA tanpa jaminan
                       apa pun.
                       <span className="font-semibold text-gray-900 dark:text-white">
                         {" "}
