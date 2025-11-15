@@ -2,7 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { auth, db, googleProvider, facebookProvider } from "@/lib/firebase";
+import {
+  auth,
+  db,
+  googleProvider,
+  facebookProvider,
+  githubProvider,
+} from "@/lib/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import {
   collection,
@@ -180,6 +186,27 @@ export default function LoginPage() {
     }
   };
 
+  const handleGithubSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      const user = result.user;
+
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (!userDoc.exists()) {
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          role: "user",
+          createdAt: new Date(),
+        });
+      }
+
+      router.push("/dashboard");
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
+      else setError("Terjadi kesalahan");
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-950 dark:to-purple-950">
@@ -312,6 +339,7 @@ export default function LoginPage() {
               Masuk dengan Google
             </button>
 
+            {/* Facebook Sign In */}
             <button
               type="button"
               onClick={handleFacebookSignIn}
@@ -321,6 +349,18 @@ export default function LoginPage() {
                 <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2V9.5c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.3l-.4 3h-1.9v7A10 10 0 0 0 22 12" />
               </svg>
               Masuk dengan Facebook
+            </button>
+
+            {/* Github Sign In */}
+            <button
+              type="button"
+              onClick={handleGithubSignIn}
+              className="w-full bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="white">
+                <path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.8 10.9c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.1-1.6-1.1-1.6-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .8.1-.7.4-1.1.7-1.4-2.5-.3-5.1-1.3-5.1-5.7 0-1.2.4-2.1 1-2.9-.1-.3-.4-1.4.1-2.8 0 0 .8-.3 2.8 1 .8-.2 1.6-.3 2.4-.3s1.6.1 2.4.3c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.5.1 2.8.6.8 1 1.7 1 2.9 0 4.4-2.6 5.4-5.1 5.7.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" />
+              </svg>
+              Masuk dengan GitHub
             </button>
           </form>
 

@@ -4,6 +4,11 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 import { FacebookAuthProvider } from "firebase/auth";
 
+import { GithubAuthProvider } from "firebase/auth";
+
+export const githubProvider = new GithubAuthProvider();
+githubProvider.addScope("user:email");
+
 export const facebookProvider = new FacebookAuthProvider();
 facebookProvider.addScope("public_profile");
 facebookProvider.addScope("email");
