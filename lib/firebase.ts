@@ -2,6 +2,12 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
+import { FacebookAuthProvider } from "firebase/auth";
+
+export const facebookProvider = new FacebookAuthProvider();
+facebookProvider.addScope("public_profile");
+facebookProvider.addScope("email");
+
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
