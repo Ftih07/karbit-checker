@@ -10,6 +10,7 @@ import {
   githubProvider,
   microsoftProvider,
   twitterProvider,
+  yahooProvider,
 } from "@/lib/firebase";
 import {
   signInWithEmailAndPassword,
@@ -394,6 +395,18 @@ export default function LoginPage() {
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
               Masuk dengan X
+            </button>
+
+            {/* Yahoo Sign In */}
+            <button
+              type="button"
+              onClick={() => handleSocialSignIn(yahooProvider)}
+              className="w-full bg-[#6002de] hover:bg-[#4a01ad] text-white font-semibold py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1.12-6.023l-1.63 3.447-1.12-.533 1.63-3.447c-.573-.3-1.05-.7-1.42-1.18-.37-.48-.63-.98-.78-1.5-.15-.52-.22-1.04-.22-1.58 0-.6.1-1.16.3-1.68.2-.52.5-1 .88-1.4.38-.4.84-.72 1.36-1 .52-.28 1.1-.4 1.74-.4.6 0 1.16.12 1.68.38s.96.6 1.32 1c.36.4.63.88.8 1.4.17.52.26 1.08.26 1.68 0 .54-.07 1.06-.22 1.58-.15.52-.4 1.02-.76 1.5-.36.48-.82.88-1.38 1.18zm-1.09-2.22c.24.18.48.3.7.38.22.08.44.12.66.12.26 0 .5-.04.72-.12.22-.08.42-.2.6-.38.18-.18.33-.38.44-.62s.17-.5.17-.78c0-.3-.05-.58-.16-.84-.1-.26-.26-.5-.46-.72-.2-.2-.44-.38-.72-.5s-.6-.2-1-.2c-.36 0-.7.06-1 .2s-.58.3-.8.5c-.2.2-.38.44-.5.72s-.2.58-.2.84c0 .28.06.54.18.78s.26.44.46.62zm-3.08-6.14h-1.4l3.1 5.02v3.74h1.4v-3.74l3.1-5.02h-1.4l-2.4 3.86z" />
+              </svg>
+              Masuk dengan Yahoo
             </button>
           </form>
 

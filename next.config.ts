@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       "avatars.githubusercontent.com",
       "lh3.googleusercontent.com",
       "pbs.twimg.com",
+      "s.yimg.com",
     ],
   },
 };

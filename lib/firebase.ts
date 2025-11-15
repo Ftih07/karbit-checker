@@ -49,4 +49,10 @@ facebookProvider.addScope("email");
 // TWITTER SIGN-IN
 export const twitterProvider = new TwitterAuthProvider();
 
+// YAHOO SIGN-IN
+export const yahooProvider = new OAuthProvider("yahoo.com");
+yahooProvider.addScope("email");
+yahooProvider.addScope("profile");
+yahooProvider.addScope("openid");
+
 export default app;
