@@ -1,17 +1,12 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-
-import { FacebookAuthProvider } from "firebase/auth";
-
-import { GithubAuthProvider } from "firebase/auth";
-
-export const githubProvider = new GithubAuthProvider();
-githubProvider.addScope("user:email");
-
-export const facebookProvider = new FacebookAuthProvider();
-facebookProvider.addScope("public_profile");
-facebookProvider.addScope("email");
+import {
+  getAuth,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  GithubAuthProvider,
+  OAuthProvider,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -23,9 +18,31 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Supaya gak double init di Next.js
+// Prevent double init
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+
+// Providers
 export const googleProvider = new GoogleAuthProvider();
+
+// MICROSOFT SIGN-IN
+export const microsoftProvider = new OAuthProvider("microsoft.com");
+microsoftProvider.setCustomParameters({
+  prompt: "consent",
+});
+microsoftProvider.addScope("email");
+microsoftProvider.addScope("openid");
+microsoftProvider.addScope("profile");
+
+// GITHUB SIGN-IN
+export const githubProvider = new GithubAuthProvider();
+githubProvider.addScope("user:email");
+
+// FACEBOOK SIGN-IN
+export const facebookProvider = new FacebookAuthProvider();
+facebookProvider.addScope("public_profile");
+facebookProvider.addScope("email");
+
+export default app;

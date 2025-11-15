@@ -8,8 +8,14 @@ import {
   googleProvider,
   facebookProvider,
   githubProvider,
+  microsoftProvider,
 } from "@/lib/firebase";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  AuthProvider,
+  User,
+} from "firebase/auth";
 import {
   collection,
   query,
@@ -34,11 +40,27 @@ export default function LoginPage() {
   const [isLocked, setIsLocked] = useState(false);
   const [lockEndTime, setLockEndTime] = useState<number | null>(null);
 
-  // Cek user login
+  // =========================
+  // 🟢 Check user login state
+  // =========================
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
+        const ref = doc(db, "users", user.uid);
+        let userDoc = await getDoc(ref);
+
+        // Buat user jika belum ada
+        if (!userDoc.exists()) {
+          await setDoc(ref, {
+            email: user.email,
+            role: "user",
+            createdAt: new Date(),
+          });
+
+          userDoc = await getDoc(ref);
+        }
+
+        // Validasi role
         if (userDoc.exists() && userDoc.data().role === "user") {
           router.push("/dashboard");
         } else {
@@ -51,7 +73,9 @@ export default function LoginPage() {
     return () => unsubscribe();
   }, [router]);
 
-  // Lock timer
+  // =========================
+  // 🟡 Lock timer
+  // =========================
   useEffect(() => {
     const savedLockTime = localStorage.getItem("loginLockTime");
     if (savedLockTime) {
@@ -79,7 +103,9 @@ export default function LoginPage() {
     }
   }, [isLocked, lockEndTime]);
 
-  // 🟨 Login bisa pakai username atau email
+  // =========================
+  // 🟨 Login dengan username/email
+  // =========================
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -144,66 +170,45 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
+  // =========================
+  // 🔹 Save user universal
+  // =========================
+  const saveUserIfNew = async (user: User) => {
+    const ref = doc(db, "users", user.uid);
+    const userDoc = await getDoc(ref);
 
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      if (!userDoc.exists()) {
-        await setDoc(doc(db, "users", user.uid), {
-          email: user.email,
-          role: "user",
-          createdAt: new Date(),
-        });
-      }
+    if (!userDoc.exists()) {
+      const email = user.email || "";
+      const displayName = user.displayName || "";
+      const username = displayName
+        ? displayName.toLowerCase().replace(/\s+/g, "")
+        : email.split("@")[0];
 
-      router.push("/dashboard");
-    } catch (err: unknown) {
-      if (err instanceof Error) setError(err.message);
-      else setError("Terjadi kesalahan");
+      const avatar =
+        user.photoURL ||
+        "https://res.cloudinary.com/dl7v3mypy/image/upload/v1762862340/kon0gqprzzxdmwhnzqex.png";
+
+      await setDoc(ref, {
+        email,
+        username,
+        role: "user",
+        avatar,
+        createdAt: new Date(),
+      });
     }
   };
 
-  const handleFacebookSignIn = async () => {
+  // =========================
+  // 🔹 Social login handler universal
+  // =========================
+  const handleSocialSignIn = async (provider: AuthProvider) => {
     try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      const user = result.user;
-
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      if (!userDoc.exists()) {
-        await setDoc(doc(db, "users", user.uid), {
-          email: user.email,
-          role: "user",
-          createdAt: new Date(),
-        });
-      }
-
+      const res = await signInWithPopup(auth, provider);
+      await saveUserIfNew(res.user);
       router.push("/dashboard");
-    } catch (err: unknown) {
-      if (err instanceof Error) setError(err.message);
-      else setError("Terjadi kesalahan");
-    }
-  };
-
-  const handleGithubSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, githubProvider);
-      const user = result.user;
-
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      if (!userDoc.exists()) {
-        await setDoc(doc(db, "users", user.uid), {
-          email: user.email,
-          role: "user",
-          createdAt: new Date(),
-        });
-      }
-
-      router.push("/dashboard");
-    } catch (err: unknown) {
-      if (err instanceof Error) setError(err.message);
-      else setError("Terjadi kesalahan");
+    } catch (e: unknown) {
+      if (e instanceof Error) setError(e.message);
+      else setError("Terjadi kesalahan.");
     }
   };
 
@@ -315,7 +320,7 @@ export default function LoginPage() {
             {/* Google Sign In */}
             <button
               type="button"
-              onClick={handleGoogleSignIn}
+              onClick={() => handleSocialSignIn(googleProvider)}
               className="w-full bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 font-semibold py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -342,7 +347,7 @@ export default function LoginPage() {
             {/* Facebook Sign In */}
             <button
               type="button"
-              onClick={handleFacebookSignIn}
+              onClick={() => handleSocialSignIn(facebookProvider)}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="white">
@@ -351,16 +356,31 @@ export default function LoginPage() {
               Masuk dengan Facebook
             </button>
 
-            {/* Github Sign In */}
+            {/* GitHub Sign In */}
             <button
               type="button"
-              onClick={handleGithubSignIn}
+              onClick={() => handleSocialSignIn(githubProvider)}
               className="w-full bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="white">
                 <path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.8 10.9c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.1-1.6-1.1-1.6-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .8.1-.7.4-1.1.7-1.4-2.5-.3-5.1-1.3-5.1-5.7 0-1.2.4-2.1 1-2.9-.1-.3-.4-1.4.1-2.8 0 0 .8-.3 2.8 1 .8-.2 1.6-.3 2.4-.3s1.6.1 2.4.3c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.5.1 2.8.6.8 1 1.7 1 2.9 0 4.4-2.6 5.4-5.1 5.7.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" />
               </svg>
               Masuk dengan GitHub
+            </button>
+
+            {/* Microsoft Sign In */}
+            <button
+              type="button"
+              onClick={() => handleSocialSignIn(microsoftProvider)}
+              className="w-full bg-[#2F2F2F] hover:bg-black text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-3"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24">
+                <path fill="#F25022" d="M1 1h10v10H1z" />
+                <path fill="#7FBA00" d="M13 1h10v10H13z" />
+                <path fill="#00A4EF" d="M1 13h10v10H1z" />
+                <path fill="#FFB900" d="M13 13h10v10H13z" />
+              </svg>
+              Masuk dengan Microsoft
             </button>
           </form>
 
