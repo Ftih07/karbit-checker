@@ -190,6 +190,18 @@ export default function Navbar() {
               🎮 Game
             </Link>
 
+            <Link
+              href="/feedback"
+              className={`block px-4 py-2 rounded-lg font-medium ${
+                pathname === "/dashboard"
+                  ? "bg-purple-600 text-white"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              💬 Feedback
+            </Link>
+
             {!user ? (
               <Link
                 href="/login"
