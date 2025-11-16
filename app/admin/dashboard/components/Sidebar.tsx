@@ -50,6 +50,25 @@ const menuItems = [
       </svg>
     ),
   },
+  {
+    name: "Feedback",
+    href: "/admin/dashboard/feedback",
+    icon: (
+      <svg
+        className="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M7 8h10M7 12h6m-6 4h10M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H7l-2 2H3v12a2 2 0 002 2z"
+        />
+      </svg>
+    ),
+  },
 ];
 
 export default function Sidebar({ email }: SidebarProps) {

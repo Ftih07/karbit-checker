@@ -87,6 +87,13 @@ export default function Navbar() {
               🎮 Game
             </Link>
 
+            <Link
+              href="/feedback"
+              className="relative px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              💬 Feedback
+            </Link>
+
             {/* LOGIN / PROFILE */}
             {!user ? (
               <Link
