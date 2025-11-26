@@ -141,11 +141,6 @@ export default function Navbar() {
                 )}
               </div>
             )}
-
-            {/* THEME TOGGLE */}
-            <div className="ml-2">
-              <ThemeToggle />
-            </div>
           </div>
 
           {/* MOBILE MENU BUTTON */}
@@ -230,13 +225,6 @@ export default function Navbar() {
                 </button>
               </>
             )}
-
-            <div className="pt-2 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                Tema
-              </span>
-              <ThemeToggle />
-            </div>
           </div>
         </div>
       )}

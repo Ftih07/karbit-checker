@@ -121,6 +121,30 @@ export default function TicTacToeMenu() {
               </span>
             </div>
           </button>
+
+          {/* Multiplayer */}
+          <button
+            onClick={() =>
+              router.push("/dashboard/games/tictactoe/multiplayer")
+            }
+            className="group bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:scale-105 text-left"
+          >
+            <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300">
+              <span className="text-3xl">👥</span>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              Main Multiplayer
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              Tantang temanmu atau bermain bersama orang lain secara online!
+            </p>
+            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium">
+              <span>Cari Lawan</span>
+              <span className="group-hover:translate-x-1 transition-transform duration-200">
+                →
+              </span>
+            </div>
+          </button>
         </div>
 
         {/* History Button */}
